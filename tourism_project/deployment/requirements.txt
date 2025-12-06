@@ -3,5 +3,5 @@ huggingface_hub==0.36.0
 streamlit==1.43.2
 joblib==1.5.2
 scikit-learn==1.6.1
-xgboost==3.1.2
+xgboost==2.1.4
 mlflow==3.0.1
