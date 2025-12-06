@@ -1,0 +1,27 @@
+from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
+from huggingface_hub import HfApi, create_repo
+import os
+
+
+token = os.environ["HF_TOKEN"]
+
+repo_id = "pal27/tourism-analysis"
+repo_type = "dataset"
+
+# Initialize API client
+api = HfApi(token=token)
+
+# Step 1: Check if the Dataset exists
+try:
+    api.repo_info(repo_id=repo_id, repo_type=repo_type)
+    print(f"Dataset '{repo_id}' already exists. Using it.")
+except RepositoryNotFoundError:
+    print(f"Dataset '{repo_id}' not found. Creating new space...")
+    create_repo(repo_id=repo_id, repo_type=repo_type, private=False)
+    print(f"Dataset '{repo_id}' created.")
+
+api.upload_folder(
+    folder_path="tourism_project/data",
+    repo_id=repo_id,
+    repo_type=repo_type,
+)
